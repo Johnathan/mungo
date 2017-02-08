@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+// Admin Routes
+Route::name( 'admin.' )->prefix( 'admin' )->namespace( 'Admin' )->group(function(){
+
+    Route::resource( 'sessions', 'SessionsController' );
+
 });

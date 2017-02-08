@@ -7143,3 +7143,20 @@ label.panel-block:hover {
   background-color: whitesmoke;
   padding: 3rem 1.5rem 6rem;
 }
+
+.label .is-danger {
+  color: #ff3860;
+}
+
+.is-dark .checkbox {
+  color: white;
+}
+
+.is-dark .checkbox:hover {
+  color: #b5b5b5;
+}
+
+.is-dark .label,
+.is-dark .is-link {
+  color: white;
+}
