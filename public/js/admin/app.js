@@ -315,8 +315,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Dashboard_vue__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_pages_Dashboard_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(30);
+
+
 
 
 
@@ -325,22 +326,11 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_
 // Generic Components
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('alert', __webpack_require__(9));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('destroy-button', __webpack_require__(10));
-
-// Route Components
-
-
-var routes = [{
-    path: '/admin',
-    component: { template: '<router-view></router-view>' },
-    children: [{
-        path: 'dashboard',
-        component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Dashboard_vue___default.a
-    }]
-}];
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('nav-item', __webpack_require__(24));
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
     mode: 'history',
-    routes: routes
+    routes: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */]
 });
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
@@ -11930,6 +11920,258 @@ module.exports = g;
 __webpack_require__(2);
 module.exports = __webpack_require__(3);
 
+
+/***/ }),
+/* 22 */,
+/* 23 */,
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(25),
+  /* template */
+  __webpack_require__(26),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/jbarrett/Sites/Mungo/mungo-web/resources/assets/js/admin/components/NavItem.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] NavItem.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3fd50649", Component.options)
+  } else {
+    hotAPI.reload("data-v-3fd50649", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['href']
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', [_c('router-link', {
+    attrs: {
+      "to": {
+        path: _vm.href
+      },
+      "active-class": "is-active"
+    }
+  }, [_vm._t("default")], 2), _vm._v(" "), (_vm.$slots.sub) ? _c('ul', [_vm._t("sub")], 2) : _vm._e()], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3fd50649", module.exports)
+  }
+}
+
+/***/ }),
+/* 27 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(27),
+  /* template */
+  __webpack_require__(29),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/jbarrett/Sites/Mungo/mungo-web/resources/assets/js/admin/components/pages/Settings/Index.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Index.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-e9a3e8e4", Component.options)
+  } else {
+    hotAPI.reload("data-v-e9a3e8e4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "content"
+  }, [_c('h1', {
+    staticClass: "title"
+  }, [_vm._v("Settings")]), _vm._v(" "), _c('router-view')], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-e9a3e8e4", module.exports)
+  }
+}
+
+/***/ }),
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue__);
+
+
+// Settings
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = [{
+    path: '/admin',
+    component: { template: '<router-view></router-view>' },
+    children: [{
+        path: 'dashboard',
+        component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default.a
+    }, {
+        path: 'settings',
+        component: __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue___default.a,
+        children: [{
+            path: 'roles-and-permissions',
+            component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a
+        }]
+    }]
+}];
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {};
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(31),
+  /* template */
+  __webpack_require__(33),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/jbarrett/Sites/Mungo/mungo-web/resources/assets/js/admin/components/pages/Settings/RolesAndPermissions.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] RolesAndPermissions.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-32d64a06", Component.options)
+  } else {
+    hotAPI.reload("data-v-32d64a06", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "content"
+  }, [_c('h2', {
+    staticClass: "subtitle"
+  }, [_vm._v("Roles & Permissions")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-32d64a06", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

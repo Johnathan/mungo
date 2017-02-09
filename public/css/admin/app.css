@@ -7160,3 +7160,8 @@ label.panel-block:hover {
 .is-dark .is-link {
   color: white;
 }
+
+.content h2.subtitle {
+  font-size: 1.25em;
+  margin-top: -1.25rem;
+}
