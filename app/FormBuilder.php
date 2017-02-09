@@ -15,7 +15,7 @@ class FormBuilder extends \Collective\Html\FormBuilder {
         if( $label ) $html .= $this->buildLabel( $name, $label, $required );
 
         $html .= '<p class="control">';
-            $html .= static::text( $name, $value, [ 'class' => 'input ' . ( $error ? 'is-danger' : '' ) ] );
+            $html .= $this->input( $type, $name, $value, [ 'class' => 'input ' . ( $error ? 'is-danger' : '' ) ] );
         $html .= '</p>';
 
         if( $error ) $html .= '<span class="help is-danger">' . $error . '</span>';
