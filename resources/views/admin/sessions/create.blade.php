@@ -5,6 +5,10 @@
 @section( 'content' )
     {!! Form::open( [ 'method' => 'POST', 'route' => 'admin.sessions.store' ] ) !!}
 
+        @if( Session::has( 'error' ) )
+            <alert type="danger">{{ Session::get( 'error' ) }}</alert>
+        @endif
+
         {!! Form::emailField( 'email', 'Email Address', null, null, false, $errors->first( 'email' ) ) !!}
         {!! Form::passwordField( 'password', 'Password', null, null, false, $errors->first( 'password' ) ) !!}
 

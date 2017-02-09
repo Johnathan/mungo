@@ -7,14 +7,13 @@
 
         <title>Laravel</title>
 
-        <link rel="stylesheet" href="{{ mix( 'admin/css/app.css' ) }}">
+        <link rel="stylesheet" href="{{ mix( 'css/admin/app.css' ) }}">
 
     </head>
     <body>
         <div id="app">
         </div>
 
-
-        <script src="{{ mix( 'admin/js/app.js' ) }}"></script>
+        <script src="{{ mix( 'js/admin/app.js' ) }}"></script>
     </body>
 </html>

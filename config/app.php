@@ -181,6 +181,7 @@ return [
          * Third Party Service Providers
          */
         App\Providers\HtmlBuilderServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 
