@@ -13,6 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::name( 'api.admin.' )->prefix( 'admin' )->namespace( 'Api\Admin' )->group(function(){
+
+    Route::middleware( [ 'role:admin', 'auth:api' ] )->group(function(){
+
+        Route::get( '/roles', [ 'uses' => 'RolesController@index', 'as' => 'roles.index' ] );
+
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
+
+    });
+
 });
+
+
+
