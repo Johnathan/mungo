@@ -182,6 +182,7 @@ return [
          */
         App\Providers\HtmlBuilderServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 
