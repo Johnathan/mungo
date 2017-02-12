@@ -183,6 +183,7 @@ return [
         App\Providers\HtmlBuilderServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        Spatie\Fractal\FractalServiceProvider::class,
 
     ],
 
@@ -238,6 +239,7 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Fractal' => Spatie\Fractal\FractalFacade::class,
 
     ],
 

@@ -7148,6 +7148,10 @@ label.panel-block:hover {
   color: #ff3860;
 }
 
+.modify-role-select-container {
+  margin-bottom: 10em;
+}
+
 .is-dark .checkbox {
   color: white;
 }
@@ -7161,7 +7165,11 @@ label.panel-block:hover {
   color: white;
 }
 
-.content h2.subtitle {
+h2.subtitle {
   font-size: 1.25em;
   margin-top: -1.25rem;
+}
+
+.tag {
+  margin: 0 0.5em 0.5em 0;
 }

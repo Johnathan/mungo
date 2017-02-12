@@ -10,6 +10,7 @@
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.3.0",
+        "spatie/laravel-fractal": "^3.4",
         "spatie/laravel-permission": "^1.7"
     },
     "require-dev": {

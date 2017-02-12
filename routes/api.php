@@ -17,7 +17,8 @@ Route::name( 'api.admin.' )->prefix( 'admin' )->namespace( 'Api\Admin' )->group(
 
     Route::middleware( [ 'role:admin', 'auth:api' ] )->group(function(){
 
-        Route::get( '/roles', [ 'uses' => 'RolesController@index', 'as' => 'roles.index' ] );
+        Route::resource( 'roles', 'RolesController' );
+        Route::resource( 'permissions', 'PermissionsController' );
 
         Route::get('/user', function (Request $request) {
             return $request->user();

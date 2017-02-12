@@ -30,6 +30,12 @@ class UsersTableSeeder extends Seeder
             'name' => 'admin'
         ]);
 
+        $modifyRolesPermission = \Spatie\Permission\Models\Permission::create([
+            'name' => 'modify-roles'
+        ]);
+
+        $adminRole->givePermissionTo( $modifyRolesPermission );
+
         $adminUser->assignRole( $adminRole->name );
     }
 }

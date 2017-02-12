@@ -4,6 +4,9 @@
 
 @import "forms";
 
+// Components
+@import "components/pages/Settings/ModifyRole";
+
 .is-dark {
 
   .checkbox {
@@ -19,9 +22,11 @@
   }
 }
 
-.content {
-  h2.subtitle {
-    font-size: 1.25em;
-    margin-top: -1.25rem;
-  }
+h2.subtitle {
+  font-size: 1.25em;
+  margin-top: -1.25rem;
+}
+
+.tag {
+  margin: 0 0.5em 0.5em 0;
 }

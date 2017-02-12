@@ -13,9 +13,12 @@ window.axios.defaults.headers.common = {
 Vue.use( VueRouter );
 
 // Generic Components
+import Multiselect from 'vue-multiselect'
+Vue.component( 'multiselect', Multiselect );
 Vue.component( 'alert', require( './components/Alert.vue' ) );
 Vue.component( 'destroy-button', require( './components/DestroyButton.vue' ) );
 Vue.component( 'nav-item', require( './components/NavItem.vue' ) );
+Vue.component( 'modal', require( './components/Modal.vue' ) );
 
 
 const router = new VueRouter({
