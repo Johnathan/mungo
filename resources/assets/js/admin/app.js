@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Routes from './routes';
+import Store from './store';
 
 window.axios = require( 'axios' );
 
@@ -28,4 +29,5 @@ const router = new VueRouter({
 
 const app = new Vue({
     router,
+    store: Store,
 }).$mount( '#app' );

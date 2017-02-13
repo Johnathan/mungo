@@ -32,26 +32,18 @@
 </template>
 
 <script type="text/javascript">
+    import { mapState } from 'vuex';
     export default {
 
         data() {
             return {
-                roles: [],
-                permissions: [],
-
                 modifyRole: null,
             };
         },
 
         mounted() {
-            axios.get( '/api/admin/roles?include=permissions' ).then( response => {
-                this.roles = response.data;
-            } );
-
-            axios.get( '/api/admin/permissions' ).then( response => {
-                this.permissions = response.data;
-            } );
-
+            this.$store.dispatch( 'LOAD_ROLES' );
+            this.$store.dispatch( 'LOAD_PERMISSIONS' );
         },
 
         methods: {
@@ -64,18 +56,12 @@
             },
 
             removePermission( role, permission ) {
-                const index = role.permissions.indexOf( permission );
-                role.permissions.splice( index, 1 );
 
-                axios.patch('/api/admin/roles/' + role.id + '?include=permissions', {
-                    permissions: role.permissions.map( ( permission ) => {
-                        return permission.id;
-                    })
-                }).then(response => {
-                    role = response.data;
-                });
+                this.$store.dispatch( 'REMOVE_ROLE_PERMISSION', role, permission );
             }
         },
+
+        computed: mapState( [ 'roles', 'permissions' ] ),
 
         components: {
             'modify-role': require( './ModifyRole.vue' )
