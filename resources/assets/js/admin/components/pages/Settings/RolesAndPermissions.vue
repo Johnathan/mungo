@@ -3,10 +3,10 @@
         <h2 class="subtitle">Roles &amp; Permissions</h2>
 
         <modal :active="modifyRole">
-            <modify-role v-if="modifyRole" :role="modifyRole" :permissions="permissions" @cancel="closeRoleModal()"></modify-role>
+            <modify-role v-if="modifyRole" :role="modifyRole" :permissions="$store.permissions" @cancel="closeRoleModal()"></modify-role>
         </modal>
 
-        <table class="table" v-if="roles">
+        <table class="table" v-if="$store.roles">
             <thead>
                 <tr>
                     <th>Role</th>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="role in roles">
+                <tr v-for="role in $store.roles">
                     <td>{{ role.name }}</td>
                     <td>
                         <span class="tag is-light" v-for="permission in role.permissions">
@@ -36,20 +36,17 @@
 
         data() {
             return {
-                roles: [],
-                permissions: [],
-
                 modifyRole: null,
             };
         },
 
         mounted() {
             axios.get( '/api/admin/roles?include=permissions' ).then( response => {
-                this.roles = response.data;
+                this.$store.roles = response.data;
             } );
 
             axios.get( '/api/admin/permissions' ).then( response => {
-                this.permissions = response.data;
+                this.$store.permissions = response.data;
             } );
 
         },

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueStash from 'vue-stash';
 
 import Routes from './routes';
 
@@ -11,6 +12,7 @@ window.axios.defaults.headers.common = {
 };
 
 Vue.use( VueRouter );
+Vue.use( VueStash );
 
 // Generic Components
 import Multiselect from 'vue-multiselect'
@@ -27,5 +29,13 @@ const router = new VueRouter({
 });
 
 const app = new Vue({
+    data() {
+        return {
+            store: {
+                roles: [],
+                permissions: []
+            }
+        };
+    },
     router,
 }).$mount( '#app' );
