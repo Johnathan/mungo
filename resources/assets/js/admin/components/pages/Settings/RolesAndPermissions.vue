@@ -60,8 +60,16 @@
             },
 
             removePermission( role, permission ) {
+                const index = role.permissions.indexOf( permission );
+                role.permissions.splice( index, 1 );
 
-                this.$store.dispatch( 'REMOVE_ROLE_PERMISSION', role, permission );
+                axios.patch('/api/admin/roles/' + role.id + '?include=permissions', {
+                    permissions: role.permissions.map( ( permission ) => {
+                        return permission.id;
+                    })
+                }).then(response => {
+                    role = response.data;
+                });
             }
         },
 
