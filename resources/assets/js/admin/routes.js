@@ -19,7 +19,8 @@ export default [
                 children: [
                     {
                         path: 'roles-and-permissions',
-                        component: SettingsRolesAndPermissions
+                        component: SettingsRolesAndPermissions,
+                        beforeRouteEnter() { console.log( 'before enter' ); }
                     }
                 ]
             }

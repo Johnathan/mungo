@@ -2,6 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueStash from 'vue-stash';
 
+import CurrentUser from './CurrentUser';
+
 import Routes from './routes';
 
 window.axios = require( 'axios' );
@@ -13,6 +15,7 @@ window.axios.defaults.headers.common = {
 
 Vue.use( VueRouter );
 Vue.use( VueStash );
+Vue.use( CurrentUser );
 
 // Generic Components
 import Multiselect from 'vue-multiselect'
@@ -32,10 +35,28 @@ const app = new Vue({
     data() {
         return {
             store: {
+                currentUser: {},
                 roles: [],
                 permissions: []
             }
         };
     },
+
+    mounted() {
+        axios.get( '/api/me?include=roles.permissions,permissions' ).then( response => {
+            this.$store.currentUser = response.data;
+
+            this.$currentUser.set( this.$store.currentUser );
+        });
+
+        axios.get( '/api/admin/roles?include=permissions' ).then( response => {
+            this.$store.roles = response.data;
+        });
+
+        axios.get( '/api/admin/permissions' ).then( response => {
+            this.$store.permissions = response.data;
+        });
+    },
+
     router,
 }).$mount( '#app' );

@@ -989,9 +989,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_stash__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_stash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_stash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_multiselect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CurrentUser__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CurrentUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__CurrentUser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_multiselect__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_multiselect__);
+
+
 
 
 
@@ -1007,10 +1011,11 @@ window.axios.defaults.headers.common = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_stash___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3__CurrentUser___default.a);
 
 // Generic Components
 
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('multiselect', __WEBPACK_IMPORTED_MODULE_4_vue_multiselect___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('multiselect', __WEBPACK_IMPORTED_MODULE_5_vue_multiselect___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('alert', __webpack_require__(40));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('destroy-button', __webpack_require__(41));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('nav-item', __webpack_require__(43));
@@ -1018,18 +1023,37 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('modal', __webpack_require
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
     mode: 'history',
-    routes: __WEBPACK_IMPORTED_MODULE_3__routes__["a" /* default */]
+    routes: __WEBPACK_IMPORTED_MODULE_4__routes__["a" /* default */]
 });
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     data: function data() {
         return {
             store: {
+                currentUser: {},
                 roles: [],
                 permissions: []
             }
         };
     },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/api/me?include=roles.permissions,permissions').then(function (response) {
+            _this.$store.currentUser = response.data;
+
+            _this.$currentUser.set(_this.$store.currentUser);
+        });
+
+        axios.get('/api/admin/roles?include=permissions').then(function (response) {
+            _this.$store.roles = response.data;
+        });
+
+        axios.get('/api/admin/permissions').then(function (response) {
+            _this.$store.permissions = response.data;
+        });
+    },
+
 
     router: router
 }).$mount('#app');
@@ -2255,7 +2279,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         component: __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue___default.a,
         children: [{
             path: 'roles-and-permissions',
-            component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a
+            component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a,
+            beforeRouteEnter: function beforeRouteEnter() {
+                console.log('before enter');
+            }
         }]
     }]
 }];
@@ -14224,6 +14251,48 @@ module.exports = g;
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */
+/***/ (function(module, exports) {
+
+exports.install = function (Vue, options) {
+
+    var currentUser = {};
+    var roles = [];
+    var permissions = [];
+
+    Vue.prototype.$currentUser = function () {};
+
+    Vue.prototype.$currentUser.set = function (user) {
+        currentUser = user;
+
+        // Add use user roles to roles array
+        currentUser.roles.forEach(function (role) {
+            roles.push(role.name);
+
+            // Add role permissions to permissions array
+            role.permissions.forEach(function (permission) {
+                permissions.push(permission.name);
+            });
+        });
+
+        // Add user permissions to permissions array
+        currentUser.permissions.forEach(function (permission) {
+            permissions.push(permission.name);
+        });
+    };
+
+    Vue.prototype.$currentUser.hasPermissionTo = function (permission_name) {
+        return permissions.indexOf(permission_name) >= 0;
+    };
+
+    Vue.prototype.$currentUser.hasRole = function (role_name) {
+        return roles.indexOf(role_name) >= 0;
+    };
+};
 
 /***/ })
 /******/ ]);
