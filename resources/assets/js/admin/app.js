@@ -60,7 +60,6 @@ const app = new Vue({
                 {
                     guard.permissions.forEach( permission => {
                         if( this.$currentUser.hasPermissionTo( permission ) && passed === false ) {
-                            console.log( passed );
                             passed = true;
                         }
                     });

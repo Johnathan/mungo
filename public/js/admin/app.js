@@ -1055,7 +1055,6 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 if (typeof guard.permissions !== 'undefined') {
                     guard.permissions.forEach(function (permission) {
                         if (_this.$currentUser.hasPermissionTo(permission) && passed === false) {
-                            console.log(passed);
                             passed = true;
                         }
                     });
