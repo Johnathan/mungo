@@ -8,8 +8,8 @@ Route::name( 'api.admin.' )->prefix( 'admin' )->namespace( 'Api\Admin' )->group(
 
     Route::middleware( [ 'role:admin', 'auth:api' ] )->group(function(){
 
-        Route::resource( 'roles', 'RolesController' );
-        Route::resource( 'permissions', 'PermissionsController' );
+        Route::resource( 'roles', 'RolesController', [ 'only' => [ 'index', 'store' ] ] );
+        Route::resource( 'permissions', 'PermissionsController', [ 'only' => [ 'index' ] ] );
 
     });
 
