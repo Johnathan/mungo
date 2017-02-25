@@ -1026,31 +1026,86 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
     routes: __WEBPACK_IMPORTED_MODULE_4__routes__["a" /* default */]
 });
 
+var guards = {
+    'admin.settings.roles-and-permissions': {
+        permissions: ['modify-roles']
+    }
+};
+
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     data: function data() {
         return {
             store: {
-                currentUser: {},
+                currentUser: null,
                 roles: [],
                 permissions: []
             }
         };
     },
+
+
+    methods: {
+        checkPermission: function checkPermission(route, next) {
+            var _this = this;
+
+            var guard = guards[route.name];
+            var passed = false;
+
+            if (typeof guard !== 'undefined') {
+                if (typeof guard.permissions !== 'undefined') {
+                    guard.permissions.forEach(function (permission) {
+                        if (_this.$currentUser.hasPermissionTo(permission) && passed === false) {
+                            console.log(passed);
+                            passed = true;
+                        }
+                    });
+                }
+            } else {
+                passed = true;
+            }
+
+            if (passed) {
+                // We have permission to view the current route
+
+                // If next is set (coming from another page) then use it, otherwise we're loading the page for the
+                // first time so just return true
+                if (next) next(true);
+                return true;
+            } else {
+                // No permission :(
+
+                // If we're not coming from another page in the system throw the user back to the dashboard
+                if (next) next(false);else this.$router.push({ name: 'admin.dashboard' });
+            }
+        }
+    },
+
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         axios.get('/api/me?include=roles.permissions,permissions').then(function (response) {
-            _this.$store.currentUser = response.data;
 
-            _this.$currentUser.set(_this.$store.currentUser);
+            // Put the current user into the store
+            _this2.$store.currentUser = response.data;
+
+            // Let `currentUser` know about the current user. obviously.
+            _this2.$currentUser.set(_this2.$store.currentUser);
+
+            // When we get the user for the first time make sure they have permission to view the route
+            _this2.checkPermission(_this2.$route);
         });
 
         axios.get('/api/admin/roles?include=permissions').then(function (response) {
-            _this.$store.roles = response.data;
+            _this2.$store.roles = response.data;
         });
 
         axios.get('/api/admin/permissions').then(function (response) {
-            _this.$store.permissions = response.data;
+            _this2.$store.permissions = response.data;
+        });
+
+        // On every page change make sure the user has permission to view the route
+        this.$router.beforeEach(function (to, from, next) {
+            _this2.checkPermission(to, next);
         });
     },
 
@@ -2271,18 +2326,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["a"] = [{
     path: '/admin',
     component: { template: '<router-view></router-view>' },
+    name: 'admin',
     children: [{
         path: 'dashboard',
-        component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default.a
+        component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default.a,
+        name: 'admin.dashboard'
     }, {
         path: 'settings',
         component: __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue___default.a,
+        name: 'admin.settings',
         children: [{
             path: 'roles-and-permissions',
             component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a,
-            beforeRouteEnter: function beforeRouteEnter() {
-                console.log('before enter');
-            }
+            name: 'admin.settings.roles-and-permissions'
         }]
     }]
 }];
