@@ -54,4 +54,28 @@ class ApiRolesTest extends TestCase
             ]
         ]);
     }
+
+    public function testPermissionCanBeRemovedFromRole()
+    {
+        // Add permission to role so we can remove it again
+        $this->adminRole->givePermissionTo( $this->testPermission );
+
+        $request = $this->actingAs( $this->adminUser, 'api' )
+            ->patch( 'api/admin/roles/1?include=permissions', [
+                'permissions' => [
+                    $this->adminRole->id,
+                ]
+            ]);
+
+        $request->assertExactJson([
+            'id' => $this->adminRole->id,
+            'name' => $this->adminRole->name,
+            'permissions' => [
+                [
+                    'id' => 1,
+                    'name' => 'modify-roles'
+                ]
+            ]
+        ]);
+    }
 }
