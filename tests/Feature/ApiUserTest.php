@@ -53,7 +53,6 @@ class ApiUserTest extends TestCase
         $response->assertJson([
             'roles' => [
                 [
-                    'name' => 'admin',
                     'permissions' => [
                         [
                             'name' => 'modify-roles'

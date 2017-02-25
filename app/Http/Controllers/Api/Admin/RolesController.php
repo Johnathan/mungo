@@ -18,9 +18,12 @@ class RolesController extends Controller {
 
     public function update( ApiRoleUpdateRequest $request, Role $role )
     {
-        if( Input::has( 'permissions' ) ) $role->syncPermissions( array_map(function( $permission ){
-            return Permission::find( $permission );
-        }, Input::get( 'permissions' )) );
+        if( $request->has( 'permissions' ) )
+        {
+            $role->syncPermissions( array_map(function( $permission ){
+                return Permission::find( $permission );
+            }, $request->permissions ) );
+        }
 
         return $this->respondWithItem( $role, new RolesTransformer );
     }

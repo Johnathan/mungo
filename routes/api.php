@@ -11,10 +11,6 @@ Route::name( 'api.admin.' )->prefix( 'admin' )->namespace( 'Api\Admin' )->group(
         Route::resource( 'roles', 'RolesController' );
         Route::resource( 'permissions', 'PermissionsController' );
 
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-
     });
 
 });
