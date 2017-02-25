@@ -989,9 +989,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_router__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_stash__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_stash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_stash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_multiselect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CurrentUser__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__CurrentUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__CurrentUser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_multiselect__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_multiselect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_multiselect__);
+
+
 
 
 
@@ -1007,10 +1011,11 @@ window.axios.defaults.headers.common = {
 
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_stash___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_3__CurrentUser___default.a);
 
 // Generic Components
 
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('multiselect', __WEBPACK_IMPORTED_MODULE_4_vue_multiselect___default.a);
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('multiselect', __WEBPACK_IMPORTED_MODULE_5_vue_multiselect___default.a);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('alert', __webpack_require__(40));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('destroy-button', __webpack_require__(41));
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('nav-item', __webpack_require__(43));
@@ -1018,18 +1023,92 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('modal', __webpack_require
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
     mode: 'history',
-    routes: __WEBPACK_IMPORTED_MODULE_3__routes__["a" /* default */]
+    routes: __WEBPACK_IMPORTED_MODULE_4__routes__["a" /* default */]
 });
+
+var guards = {
+    'admin.settings.roles-and-permissions': {
+        permissions: ['modify-roles']
+    }
+};
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     data: function data() {
         return {
             store: {
+                currentUser: null,
                 roles: [],
                 permissions: []
             }
         };
     },
+
+
+    methods: {
+        checkPermission: function checkPermission(route, next) {
+            var _this = this;
+
+            var guard = guards[route.name];
+            var passed = false;
+
+            if (typeof guard !== 'undefined') {
+                if (typeof guard.permissions !== 'undefined') {
+                    guard.permissions.forEach(function (permission) {
+                        if (_this.$currentUser.hasPermissionTo(permission) && passed === false) {
+                            console.log(passed);
+                            passed = true;
+                        }
+                    });
+                }
+            } else {
+                passed = true;
+            }
+
+            if (passed) {
+                // We have permission to view the current route
+
+                // If next is set (coming from another page) then use it, otherwise we're loading the page for the
+                // first time so just return true
+                if (next) next(true);
+                return true;
+            } else {
+                // No permission :(
+
+                // If we're not coming from another page in the system throw the user back to the dashboard
+                if (next) next(false);else this.$router.push({ name: 'admin.dashboard' });
+            }
+        }
+    },
+
+    mounted: function mounted() {
+        var _this2 = this;
+
+        axios.get('/api/me?include=roles.permissions,permissions').then(function (response) {
+
+            // Put the current user into the store
+            _this2.$store.currentUser = response.data;
+
+            // Let `currentUser` know about the current user. obviously.
+            _this2.$currentUser.set(_this2.$store.currentUser);
+
+            // When we get the user for the first time make sure they have permission to view the route
+            _this2.checkPermission(_this2.$route);
+        });
+
+        axios.get('/api/admin/roles?include=permissions').then(function (response) {
+            _this2.$store.roles = response.data;
+        });
+
+        axios.get('/api/admin/permissions').then(function (response) {
+            _this2.$store.permissions = response.data;
+        });
+
+        // On every page change make sure the user has permission to view the route
+        this.$router.beforeEach(function (to, from, next) {
+            _this2.checkPermission(to, next);
+        });
+    },
+
 
     router: router
 }).$mount('#app');
@@ -2247,15 +2326,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["a"] = [{
     path: '/admin',
     component: { template: '<router-view></router-view>' },
+    name: 'admin',
     children: [{
         path: 'dashboard',
-        component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default.a
+        component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Dashboard_vue___default.a,
+        name: 'admin.dashboard'
     }, {
         path: 'settings',
         component: __WEBPACK_IMPORTED_MODULE_1__components_pages_Settings_Index_vue___default.a,
+        name: 'admin.settings',
         children: [{
             path: 'roles-and-permissions',
-            component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a
+            component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Settings_RolesAndPermissions_vue___default.a,
+            name: 'admin.settings.roles-and-permissions'
         }]
     }]
 }];
@@ -14224,6 +14307,48 @@ module.exports = g;
 __webpack_require__(9);
 module.exports = __webpack_require__(10);
 
+
+/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */
+/***/ (function(module, exports) {
+
+exports.install = function (Vue, options) {
+
+    var currentUser = {};
+    var roles = [];
+    var permissions = [];
+
+    Vue.prototype.$currentUser = function () {};
+
+    Vue.prototype.$currentUser.set = function (user) {
+        currentUser = user;
+
+        // Add use user roles to roles array
+        currentUser.roles.forEach(function (role) {
+            roles.push(role.name);
+
+            // Add role permissions to permissions array
+            role.permissions.forEach(function (permission) {
+                permissions.push(permission.name);
+            });
+        });
+
+        // Add user permissions to permissions array
+        currentUser.permissions.forEach(function (permission) {
+            permissions.push(permission.name);
+        });
+    };
+
+    Vue.prototype.$currentUser.hasPermissionTo = function (permission_name) {
+        return permissions.indexOf(permission_name) >= 0;
+    };
+
+    Vue.prototype.$currentUser.hasRole = function (role_name) {
+        return roles.indexOf(role_name) >= 0;
+    };
+};
 
 /***/ })
 /******/ ]);

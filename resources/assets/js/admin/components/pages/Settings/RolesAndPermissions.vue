@@ -41,6 +41,7 @@
         },
 
         mounted() {
+
             axios.get( '/api/admin/roles?include=permissions' ).then( response => {
                 this.$store.roles = response.data;
             } );
@@ -63,13 +64,13 @@
                 const index = role.permissions.indexOf( permission );
                 role.permissions.splice( index, 1 );
 
-                axios.patch('/api/admin/roles/' + role.id + '?include=permissions', {
+                axios.patch( '/api/admin/roles/' + role.id + '?include=permissions', {
                     permissions: role.permissions.map( ( permission ) => {
                         return permission.id;
-                    })
-                }).then(response => {
+                    } )
+                } ).then( response => {
                     role = response.data;
-                });
+                } );
             }
         },
 
