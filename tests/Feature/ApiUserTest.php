@@ -11,31 +11,30 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class ApiUserTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Test to ensure authenticated user is returned
      *
      * @return void
      */
     public function testAuthenticatedUserIsReturned()
     {
-        $user = User::first();
-
-        $response = $this->actingAs( $user, 'api' )
+        $response = $this->actingAs( $this->adminUser, 'api' )
             ->get( 'api/me' );
 
         $response->assertStatus( 200 )
             ->assertExactJson([
-                'id' => 1,
-                'name' => 'Admin',
-                'email_address' => 'admin@example.com'
+                'id' => $this->adminUser->id,
+                'name' => $this->adminUser->name,
+                'email_address' => $this->adminUser->email
             ]);
     }
 
+    /**
+     * Test to ensure user can be returned along with roles and permissions
+     */
     public function testAuthenticatedUserIsReturnedWithRolesAndPermissions()
     {
-        $user = User::first();
-
         // Get the user with roles
-        $response = $this->actingAs( $user, 'api' )
+        $response = $this->actingAs( $this->adminUser, 'api' )
             ->get( 'api/me?include=roles' );
 
         $response->assertJson([
@@ -47,7 +46,7 @@ class ApiUserTest extends TestCase
         ]);
 
         // Do we get permissions as well as roles?
-        $response = $this->actingAs( $user, 'api' )
+        $response = $this->actingAs( $this->adminUser, 'api' )
             ->get( 'api/me?include=roles.permissions' );
 
         $response->assertJson([

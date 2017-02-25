@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class ApiRolesTest extends TestCase
 {
     /**
-     * A basic test example.
+     * Test to ensure roles are returned from the API.
      *
      * @return void
      */
@@ -29,6 +29,28 @@ class ApiRolesTest extends TestCase
         ]);
     }
 
+    /**
+     * Test to ensure permissions are returned along with roles
+     */
+    public function testPermissionsAreReturnedWithRoles()
+    {
+        $request = $this->actingAs( $this->adminUser, 'api' )
+            ->get( 'api/admin/roles?include=permissions' );
+
+        $request->assertJson([
+            [
+                'permissions' => [
+                    [
+                        'name' => 'modify-roles'
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    /**
+     * Test to ensure a permission can be added to a role
+     */
     public function testPermissionCanBeAddedToRole()
     {
         $request = $this->actingAs( $this->adminUser, 'api' )
@@ -55,6 +77,9 @@ class ApiRolesTest extends TestCase
         ]);
     }
 
+    /**
+     *  Test to ensure a permission can be removed from a role
+     */
     public function testPermissionCanBeRemovedFromRole()
     {
         // Add permission to role so we can remove it again
