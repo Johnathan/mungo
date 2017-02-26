@@ -37,5 +37,11 @@ class UsersTableSeeder extends Seeder
         $adminRole->givePermissionTo( $modifyRolesPermission );
 
         $adminUser->assignRole( $adminRole->name );
+
+        $nonAdminUser = User::create([
+            'name' => 'Not Admin',
+            'email' => 'non-admin@example.com',
+            'password' => 'password'
+        ]);
     }
 }
