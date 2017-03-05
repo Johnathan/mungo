@@ -8,14 +8,14 @@ Route::name( 'admin.' )->prefix( 'admin' )->namespace( 'Admin' )->group(function
 
     Route::middleware( [ 'role:admin' ] )->group(function(){
 
-        Route::get( '/', function(){
-            return Redirect::to( 'admin/dashboard' );
+        Route::get( '/dashboard', [
+            'uses' => 'DashboardController@index',
+            'as' => 'admin.dashboard.index'
+        ]);
+
+        Route::name( 'settings.' )->prefix( 'settings' )->group(function(){
+            Route::resource( 'roles', 'RolesController' );
         });
-
-        Route::get('{path}', function () {
-            return view( 'admin.index' );
-        })->where( 'path', '([A-z\d-\/_.]+)?' );
-
     });
 
 });
