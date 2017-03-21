@@ -16,7 +16,7 @@ class SessionsController extends Controller {
      */
     public function create()
     {
-        return View::make( 'admin.sessions.create' );
+        return view()->make( 'admin.sessions.create' );
     }
 
     public function store( AdminSessionCreateRequest $request )

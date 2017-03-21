@@ -49,9 +49,6 @@
             <div class="columns">
                 <div class="column is-one-quarter">
                     <aside class="menu">
-                        <p class="menu-label">
-                            Administration
-                        </p>
                         @include( 'admin.layouts.partials.nav' )
                     </aside>
                 </div>

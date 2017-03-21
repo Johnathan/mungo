@@ -4,12 +4,30 @@ return [
 
     'nav' => [
         [
-            'title' => 'System Settings',
-            'route' => null,
-            'children' => [
+            'section' => 'Content'
+        ],
+        [
+            'section' => 'Administration',
+            'items' => [
                 [
-                    'title' => 'Roles & Permissions',
-                    'route' => 'admin.settings.roles.index'
+                    'title' => 'Users',
+                    'route' => 'admin.users.index',
+                    'children' => [
+                        [
+                            'title' => 'Create a User',
+                            'route' => 'admin.users.create'
+                        ]
+                    ]
+                ],
+                [
+                    'title' => 'System Settings',
+                    'route' => null,
+                    'children' => [
+                        [
+                            'title' => 'Roles & Permissions',
+                            'route' => 'admin.settings.roles.index'
+                        ]
+                    ]
                 ]
             ]
         ]

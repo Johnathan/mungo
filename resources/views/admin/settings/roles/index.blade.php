@@ -23,7 +23,7 @@
                     @endforeach
                 </td>
                 <td>
-                    <a href="{{ route( 'admin.settings.roles.edit', $role->id ) }}" class="button is-light is-small">Edit</a>
+                    <a href="{{ route( 'admin.settings.roles.edit', $role->id ) }}" class="button is-primary is-small">Edit</a>
                 </td>
             </tr>
             @endforeach
