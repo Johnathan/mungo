@@ -39,7 +39,7 @@ class SessionsController extends Controller {
     {
         Auth::logout();
 
-        return Redirect::route( 'admin.sessions.create' );
+        return redirect()->route( 'admin.sessions.create' );
     }
 
 }

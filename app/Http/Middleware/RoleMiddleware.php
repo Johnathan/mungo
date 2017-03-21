@@ -20,7 +20,7 @@ class RoleMiddleware
     public function handle($request, Closure $next, $role)
     {
         if (Auth::guest()) {
-            return Redirect::route( 'admin.sessions.create' );
+            return redirect()->route( 'admin.sessions.create' );
         }
 
         if (! $request->user()->hasRole($role)) {

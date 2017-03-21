@@ -2,6 +2,10 @@
 
 @section( 'content' )
     <h1 class="title">Users</h1>
+    
+    {!! Form::open( [ 'route' => 'admin.users.index', 'method' => 'GET' ] ) !!}
+        {!! Form::searchField() !!}
+    {!! Form::close() !!}
 
     <table class="table">
         <thead>
@@ -24,5 +28,5 @@
         </tbody>
     </table>
 
-    {!! $users->links() !!}
+    {!! $users->links( 'admin.partials.pagination' ) !!}
 @stop

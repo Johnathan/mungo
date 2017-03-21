@@ -36,7 +36,14 @@ class UsersTableSeeder extends Seeder
 
         $adminRole->givePermissionTo( $modifyRolesPermission );
 
+        $manageUsersPermission = \Spatie\Permission\Models\Permission::create([
+            'name' => 'manage-users'
+        ]);
+
+        $adminRole->givePermissionTo( $manageUsersPermission );
+
         $adminUser->assignRole( $adminRole->name );
+
 
         $nonAdminUser = User::create([
             'name' => 'Not Admin',

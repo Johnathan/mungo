@@ -184,6 +184,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Spatie\Fractal\FractalServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
     ],
 

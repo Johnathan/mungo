@@ -4,7 +4,7 @@
 Route::name( 'admin.' )->prefix( 'admin' )->namespace( 'Admin' )->group(function(){
 
     Route::get( '/', function(){
-        return Redirect::route( 'admin.dashboard.index' );
+        return redirect()->route( 'admin.dashboard.index' );
     });
 
     Route::resource( 'sessions', 'SessionsController', [ 'only' => [ 'create', 'store' ] ] );

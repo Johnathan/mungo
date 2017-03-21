@@ -44,7 +44,7 @@ class RolesController extends Controller {
 
         $request->session()->flash( 'success', 'Permissions have been updated' );
 
-        return Redirect::route( 'admin.settings.roles.edit', $role->id );
+        return redirect()->route( 'admin.settings.roles.edit', $role->id );
     }
 
 }
