@@ -26,8 +26,8 @@ class HtmlBuilderServiceProvider extends ServiceProvider
 
         $this->registerFormBuilder();
 
-        $this->app->alias('html', HtmlBuilder::class );
-        $this->app->alias('form', FormBuilder::class );
+        $this->app->alias('html', HtmlBuilder::class);
+        $this->app->alias('form', FormBuilder::class);
     }
 
     /**

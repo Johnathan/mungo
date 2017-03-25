@@ -16,8 +16,8 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         // Using class based composers...
-        View::composer( 'admin.users.partials.form', function( $view ){
-            $view->with( 'roles', Role::get() );
+        View::composer('admin.users.partials.form', function ($view) {
+            $view->with('roles', Role::get());
         });
     }
 

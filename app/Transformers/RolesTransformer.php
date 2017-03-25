@@ -17,7 +17,7 @@ class RolesTransformer extends TransformerAbstract
      * @param Role $role
      * @return array
      */
-    public function transform( Role $role )
+    public function transform(Role $role)
     {
         return [
             'id' => (int) $role->id,
@@ -25,8 +25,8 @@ class RolesTransformer extends TransformerAbstract
         ];
     }
 
-    public function includePermissions( Role $role )
+    public function includePermissions(Role $role)
     {
-        return $this->collection( $role->permissions, new PermissionsTransformer );
+        return $this->collection($role->permissions, new PermissionsTransformer);
     }
 }

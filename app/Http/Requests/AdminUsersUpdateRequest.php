@@ -14,7 +14,7 @@ class AdminUsersUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can( 'manage-users' );
+        return $this->user()->can('manage-users');
     }
 
     /**
@@ -29,7 +29,7 @@ class AdminUsersUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique( 'users' )->ignore( $this->user->id )
+                Rule::unique('users')->ignore($this->user->id)
             ]
         ];
     }

@@ -13,7 +13,7 @@ class AdminUsersDestroyRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can( 'manage-users' );
+        return $this->user()->can('manage-users');
     }
 
     /**

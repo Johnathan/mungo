@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \View::share( 'currentRoute', \Route::current() );
+        \View::share('currentRoute', \Route::current());
     }
 
     /**

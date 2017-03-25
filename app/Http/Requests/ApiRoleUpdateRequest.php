@@ -13,7 +13,7 @@ class ApiRoleUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can( 'modify-roles' );
+        return $this->user()->can('modify-roles');
     }
 
     /**

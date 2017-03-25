@@ -13,7 +13,7 @@ class PermissionsTransformer extends TransformerAbstract
      * @param Permission $permission
      * @return array
      */
-    public function transform( Permission $permission )
+    public function transform(Permission $permission)
     {
         return [
             'id' => (int) $permission->id,

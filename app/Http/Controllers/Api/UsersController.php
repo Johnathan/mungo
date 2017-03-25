@@ -3,11 +3,10 @@
 use App\Transformers\UsersTransformer;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller {
-
+class UsersController extends Controller
+{
     public function me()
     {
-        return $this->respondWithItem( Auth::user(), new UsersTransformer );
+        return $this->respondWithItem(Auth::user(), new UsersTransformer);
     }
-
 }

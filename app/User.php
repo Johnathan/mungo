@@ -32,9 +32,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function setPasswordAttribute( string $password )
+    public function setPasswordAttribute(string $password)
     {
-        return $this->attributes['password'] = Hash::make( $password );
+        return $this->attributes['password'] = Hash::make($password);
     }
 
     /**
@@ -42,12 +42,11 @@ class User extends Authenticatable
      * @param string $password
      * @return User|bool
      */
-    public static function authenticateAdministrator( string $email, string $password )
+    public static function authenticateAdministrator(string $email, string $password)
     {
-        $user = Role::whereName( 'admin' )->first()->users()->whereEmail( $email )->first();
+        $user = Role::whereName('admin')->first()->users()->whereEmail($email)->first();
 
-        if( $user && Hash::check( $password, $user->password ) )
-        {
+        if ($user && Hash::check($password, $user->password)) {
             return $user;
         }
 
