@@ -21,7 +21,10 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        <a href="{{ route( 'admin.users.edit', $user->id ) }}" class="button is-primary is-small">Edit</a>
+                        @if( Auth::user()->can( 'manage-users' ) )
+                            <a href="{{ route( 'admin.users.edit', $user->id ) }}" class="button is-primary is-small">Edit</a>
+                            <destroy-button href="{{ route( 'admin.users.destroy', $user->id ) }}" class="button is-danger is-small">Delete User</destroy-button>
+                        @endif
                     </td>
                 </tr>
             @endforeach

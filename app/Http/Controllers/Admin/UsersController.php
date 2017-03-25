@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUsersCreateRequest;
+use App\Http\Requests\AdminUsersDestroyRequest;
 use App\Http\Requests\AdminUsersUpdateRequest;
 use App\User;
 use Illuminate\Contracts\Session\Session;
@@ -63,6 +64,15 @@ class UsersController extends Controller {
         $request->session()->flash( 'success', 'User has been updated' );
 
         return redirect()->route( 'admin.users.index' );
+    }
+
+    public function destroy( AdminUsersDestroyRequest $request, User $user )
+    {
+        $user->delete();
+
+        $request->session()->flash( 'success', 'User has been removed from the system' );
+
+        return redirect()->back();
     }
 
 }
