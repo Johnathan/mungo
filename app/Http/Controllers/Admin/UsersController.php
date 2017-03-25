@@ -41,6 +41,9 @@ class UsersController extends Controller {
 
         $user->save();
 
+        // Set user role(s)
+        $user->roles()->sync( $request->roles ?? [] );
+
         $request->session()->flash( 'success', 'User has been created' );
 
         return redirect()->route( 'admin.users.index' );
@@ -53,7 +56,9 @@ class UsersController extends Controller {
 
     public function update( AdminUsersUpdateRequest $request, User $user )
     {
-        $user->update( $request->all() );
+        $user->update( $request->except( 'roles' ) );
+
+        $user->roles()->sync( $request->roles ?? [] );
 
         $request->session()->flash( 'success', 'User has been updated' );
 

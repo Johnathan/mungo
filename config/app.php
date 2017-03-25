@@ -186,6 +186,9 @@ return [
         Spatie\Fractal\FractalServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
 
+        \App\Providers\ComposerServiceProvider::class,
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+
     ],
 
     /*
@@ -241,6 +244,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Fractal' => Spatie\Fractal\FractalFacade::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
 
     ],
 
