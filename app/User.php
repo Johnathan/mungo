@@ -6,12 +6,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, HasApiTokens;
+    use Notifiable, HasRoles, HasApiTokens, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,9 +32,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function setPasswordAttribute( string $password )
+    public function setPasswordAttribute(string $password)
     {
-        return $this->attributes['password'] = Hash::make( $password );
+        return $this->attributes['password'] = Hash::make($password);
     }
 
     /**
@@ -41,12 +42,11 @@ class User extends Authenticatable
      * @param string $password
      * @return User|bool
      */
-    public static function authenticateAdministrator( string $email, string $password )
+    public static function authenticateAdministrator(string $email, string $password)
     {
-        $user = Role::whereName( 'admin' )->first()->users()->whereEmail( $email )->first();
+        $user = Role::whereName('admin')->first()->users()->whereEmail($email)->first();
 
-        if( $user && Hash::check( $password, $user->password ) )
-        {
+        if ($user && Hash::check($password, $user->password)) {
             return $user;
         }
 

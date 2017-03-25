@@ -12,13 +12,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table( 'users' )->truncate();
-        DB::table( 'roles' )->truncate();
-        DB::table( 'permissions' )->truncate();
-        DB::table( 'password_resets' )->truncate();
-        DB::table( 'role_has_permissions' )->truncate();
-        DB::table( 'user_has_permissions' )->truncate();
-        DB::table( 'user_has_roles' )->truncate();
+        DB::table('users')->truncate();
+        DB::table('roles')->truncate();
+        DB::table('permissions')->truncate();
+        DB::table('password_resets')->truncate();
+        DB::table('role_has_permissions')->truncate();
+        DB::table('user_has_permissions')->truncate();
+        DB::table('user_has_roles')->truncate();
 
         $adminUser = User::create([
             'name' => 'Admin',
@@ -34,9 +34,16 @@ class UsersTableSeeder extends Seeder
             'name' => 'modify-roles'
         ]);
 
-        $adminRole->givePermissionTo( $modifyRolesPermission );
+        $adminRole->givePermissionTo($modifyRolesPermission);
 
-        $adminUser->assignRole( $adminRole->name );
+        $manageUsersPermission = \Spatie\Permission\Models\Permission::create([
+            'name' => 'manage-users'
+        ]);
+
+        $adminRole->givePermissionTo($manageUsersPermission);
+
+        $adminUser->assignRole($adminRole->name);
+
 
         $nonAdminUser = User::create([
             'name' => 'Not Admin',

@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ApiRoleUpdateRequest extends FormRequest
+class AdminUsersUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class ApiRoleUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('modify-roles');
+        return $this->user()->can('manage-users');
     }
 
     /**
@@ -24,6 +25,12 @@ class ApiRoleUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($this->user->id)
+            ]
         ];
     }
 }

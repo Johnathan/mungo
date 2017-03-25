@@ -9,30 +9,42 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use View;
 
-class RolesController extends Controller {
+class RolesController extends Controller
+{
 
+    /**
+     * @return mixed
+     */
     public function index()
     {
         $roles = Role::get();
 
-        return View::make( 'admin.settings.roles.index', compact( 'roles' ) );
+        return view()->make('admin.settings.roles.index', compact('roles'));
     }
 
-    public function edit( $role )
+    /**
+     * @param Role $role
+     * @return mixed
+     */
+    public function edit(Role $role)
     {
         $permissions = Permission::get();
 
-        return View::make( 'admin.settings.roles.edit', compact( 'role', 'permissions' ) );
+        return view()->make('admin.settings.roles.edit', compact('role', 'permissions'));
     }
 
-    public function update( Request $request, Role $role )
+    /**
+     * @param Request $request
+     * @param Role $role
+     * @return mixed
+     */
+    public function update(Request $request, Role $role)
     {
         // The only thing on a role we can update is the permissions
-        $role->permissions()->sync( $request->permissions ?? [] );
+        $role->permissions()->sync($request->permissions ?? []);
 
-        $request->session()->flash( 'success', 'Permissions have been updated' );
+        $request->session()->flash('success', 'Permissions have been updated');
 
-        return Redirect::route( 'admin.settings.roles.edit', $role->id );
+        return redirect()->route('admin.settings.roles.edit', $role->id);
     }
-
 }

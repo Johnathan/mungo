@@ -16,7 +16,7 @@ class UsersTransformer extends TransformerAbstract
      * @param User $user
      * @return array
      */
-    public function transform( User $user )
+    public function transform(User $user)
     {
         return [
             'id' => (int) $user->id,
@@ -29,17 +29,17 @@ class UsersTransformer extends TransformerAbstract
      * @param User $user
      * @return \League\Fractal\Resource\Collection
      */
-    protected function includeRoles( User $user )
+    protected function includeRoles(User $user)
     {
-        return $this->collection( $user->roles, new RolesTransformer );
+        return $this->collection($user->roles, new RolesTransformer);
     }
 
     /**
      * @param User $user
      * @return \League\Fractal\Resource\Collection
      */
-    protected function includePermissions( User $user )
+    protected function includePermissions(User $user)
     {
-        return $this->collection( $user->permissions, new PermissionsTransformer );
+        return $this->collection($user->permissions, new PermissionsTransformer);
     }
 }

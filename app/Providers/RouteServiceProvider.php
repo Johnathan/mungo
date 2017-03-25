@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::model( 'role', Role::class );
+        Route::model('role', Role::class);
     }
 
     /**
