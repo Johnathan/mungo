@@ -1,9 +1,5 @@
 <?php
 
-Route::get( 'test', function(){
-    Bugsnag::notifyError('ErrorType', 'Test Error');
-});
-
 // Admin Routes
 Route::name( 'admin.' )->prefix( 'admin' )->namespace( 'Admin' )->group(function(){
 
